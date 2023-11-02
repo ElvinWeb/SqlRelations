@@ -39,15 +39,38 @@ CREATE TABLE Employees (
     DepartmentID INT FOREIGN KEY (DepartmentID) REFERENCES Departments (ID)
 );
 
+CREATE TABLE Stores (
+    ID INT IDENTITY PRIMARY KEY,
+    StoreName NVARCHAR(50),
+);
+
+CREATE TABLE Product (
+    ProductID INT IDENTITY PRIMARY KEY,
+    [Name] NVARCHAR(50),
+    StoreID INT FOREIGN KEY (StoreID) REFERENCES Stores (ID)
+);
+
+
+
+
 SELECT * FROM Departments
 INSERT INTO Departments 
 VALUES ('IT'),('SMM'),('HR')
-
 
 --DROP TABLE Employees
 SELECT * FROM Employees
 INSERT INTO Employees 
 VALUES ('Elcin','Qafarov',1),('Samir','Agayev',1),('Amil','Qedirov',2),('Fidan','Qedirova',3),('Ayan','Qedimova',2)
+
+
+SELECT * FROM Stores
+INSERT INTO Stores 
+VALUES ('Bazar Store'),('OBA'),('Bravo')
+
+SELECT * FROM Product
+
+INSERT INTO Product 
+VALUES ('Duz',1),('Un',NULL),('Pecenye',2),('Konfet',3),('Sokalad',NULL)
 
 -- JOINS 
 
@@ -59,7 +82,25 @@ SELECT * FROM Users
 FULL OUTER JOIN Profiles 
 ON Users.ID = Profiles.UserID;
 
-
+------
+SELECT * FROM Stores
+INNER JOIN Product 
+ON Stores.ID = Product.StoreID;
+-------
+------
+SELECT * FROM Stores
+LEFT JOIN Product 
+ON Stores.ID = Product.StoreID;
+-------
+--------
+SELECT * FROM Stores
+RIGHT JOIN Product 
+ON Stores.ID = Product.StoreID;
+-------
+--------
+SELECT * FROM Stores
+CROSS JOIN Product;
+---------
 SELECT * FROM Departments
 LEFT JOIN Employees 
 ON Departments.ID = Employees.DepartmentID;
@@ -72,9 +113,7 @@ ON Departments.ID = Employees.DepartmentID;
 SELECT * FROM Departments
 CROSS JOIN Employees;
 
---SELECT * FROM Employees
---JOIN Departments
---ON Employees.EmployeeID > Departments.ID
+
 
 CREATE TABLE Positions (
     ID INT IDENTITY PRIMARY KEY,
